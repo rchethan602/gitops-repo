@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.25.0      # pinned — never latest in prod
+        image: public.ecr.aws/nginx/nginx      # pinned — never latest in prod
         resources:
           requests:
             cpu: 50m
