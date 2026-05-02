@@ -4,7 +4,7 @@ namespace: dev
 resources:
 - ../../base
 images:
-- name: nginx
+- name: public.ecr.aws/nginx/nginx
   newTag: "1.25.0"        # dev tracks latest
 patches:
 - path: replica-patch.yaml

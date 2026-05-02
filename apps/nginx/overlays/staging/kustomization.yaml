@@ -4,7 +4,7 @@ namespace: staging
 resources:
 - ../../base
 images:
-- name: nginx
+- name: public.ecr.aws/nginx/nginx
   newTag: "1.25.0"        # staging pinned to promoted version
 patches:
 - path: replica-patch.yaml
