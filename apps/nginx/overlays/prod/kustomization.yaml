@@ -4,7 +4,7 @@ namespace: prod
 resources:
 - ../../base
 images:
-- name: nginx
-  newTag: "1.25.0"        # prod pinned to last stable
+- name: public.ecr.aws/nginx/nginx
+  newTag: "1.26.0"        # prod pinned to last stable
 patches:
 - path: replica-patch.yaml
