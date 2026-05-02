@@ -3,7 +3,8 @@ kind: Kustomization
 namespace: prod
 resources:
 - ../../base
+images:
+- name: nginx
+  newTag: "1.25.0"        # prod pinned to last stable
 patches:
 - path: replica-patch.yaml
-commonLabels:
-  env: prod

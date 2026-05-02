@@ -3,7 +3,8 @@ kind: Kustomization
 namespace: dev
 resources:
 - ../../base
+images:
+- name: nginx
+  newTag: "1.25.0"        # dev tracks latest
 patches:
 - path: replica-patch.yaml
-commonLabels:
-  env: dev

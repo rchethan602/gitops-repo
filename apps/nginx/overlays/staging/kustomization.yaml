@@ -3,7 +3,8 @@ kind: Kustomization
 namespace: staging
 resources:
 - ../../base
+images:
+- name: nginx
+  newTag: "1.25.0"        # staging pinned to promoted version
 patches:
 - path: replica-patch.yaml
-commonLabels:
-  env: staging
