@@ -5,6 +5,6 @@ resources:
 - ../../base
 images:
 - name: public.ecr.aws/nginx/nginx
-  newTag: "1.29.0"        # prod pinned to last stable
+  newTag: "1.26.0"        # prod pinned to last stable
 patches:
 - path: replica-patch.yaml
