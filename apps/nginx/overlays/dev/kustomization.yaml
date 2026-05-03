@@ -1,10 +1,12 @@
+# apps/nginx/overlays/dev/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: dev
 resources:
 - ../../base
+- external-secret.yaml      # add this
 images:
 - name: public.ecr.aws/nginx/nginx
-  newTag: "1.26.0"        # dev tracks latest
+  newTag: "1.26.0"
 patches:
 - path: replica-patch.yaml

@@ -1,3 +1,4 @@
+# apps/nginx/base/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,7 +15,18 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: public.ecr.aws/nginx/nginx:1.26.0      # pinned — never latest in prod
+        image: public.ecr.aws/nginx/nginx:1.25.0
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: API_KEY
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: DB_PASSWORD
         resources:
           requests:
             cpu: 50m
