@@ -1,0 +1,21 @@
+# argocd-apps/dev-nginx.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod-nginx
+  namespace: argocd
+spec:
+  project: prod-project
+  source:
+    repoURL: https://github.com/rchethan602/gitops-repo
+    targetRevision: master
+    path: apps/nginx/overlays/prod        # changed
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

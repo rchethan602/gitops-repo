@@ -1,0 +1,71 @@
+# argocd-apps/projects.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dev-project
+  namespace: argocd
+spec:
+  description: Development environment
+  sourceRepos:
+  - https://github.com/rchethan602/gitops-repo
+  destinations:
+  - namespace: dev
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: 'external-secrets.io'
+    kind: ClusterSecretStore
+  - group: ''
+    kind: Namespace
+  roles:
+  - name: dev-role
+    description: Dev team full access
+    policies:
+    - p, proj:dev-project:dev-role, applications, *, dev-project/*, allow
+    groups:
+    - dev-user
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: staging-project
+  namespace: argocd
+spec:
+  description: Staging environment
+  sourceRepos:
+  - https://github.com/rchethan602/gitops-repo
+  destinations:
+  - namespace: staging
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  roles:
+  - name: ops-role
+    description: Ops team access
+    policies:
+    - p, proj:staging-project:ops-role, applications, *, staging-project/*, allow
+    groups:
+    - ops-user
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: prod-project
+  namespace: argocd
+spec:
+  description: Production environment
+  sourceRepos:
+  - https://github.com/rchethan602/gitops-repo
+  destinations:
+  - namespace: prod
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  roles:
+  - name: ops-role
+    description: Ops team access to prod
+    policies:
+    - p, proj:prod-project:ops-role, applications, *, prod-project/*, allow
+    groups:
+    - ops-user

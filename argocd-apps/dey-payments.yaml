@@ -1,0 +1,40 @@
+# argocd-apps/dev-payments.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-payments
+  namespace: argocd
+spec:
+  project: dev-project
+  source:
+    repoURL: https://github.com/rchethan602/gitops-repo
+    targetRevision: master
+    path: apps/payments/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+---
+# argocd-apps/staging-payments.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: staging-payments
+  namespace: argocd
+spec:
+  project: staging-project
+  source:
+    repoURL: https://github.com/rchethan602/gitops-repo
+    targetRevision: master
+    path: apps/payments/overlays/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true

@@ -1,0 +1,21 @@
+# argocd-apps/dev-nginx.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-nginx
+  namespace: argocd
+spec:
+  project: dev-project
+  source:
+    repoURL: https://github.com/rchethan602/gitops-repo
+    targetRevision: master
+    path: apps/nginx/overlays/dev        # changed
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
